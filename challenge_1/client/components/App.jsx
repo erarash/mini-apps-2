@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../css/App.css";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -39,25 +40,15 @@ export default class App extends React.Component {
   }
 
   pagination(button) {
-    if (button === "next") {
-      this.setState(
-        {
-          page: this.state.page + 1
-        },
-        () => {
-          this.getData();
-        }
-      );
-    } else if (button === "back") {
-      this.setState(
-        {
-          page: this.state.page - 1
-        },
-        () => {
-          this.getData();
-        }
-      );
-    }
+    console.log(button, "button");
+    this.setState(
+      {
+        page: button.selected + 1
+      },
+      () => {
+        this.getData();
+      }
+    );
   }
 
   render() {
@@ -82,32 +73,45 @@ export default class App extends React.Component {
         </div>
         {this.state.data.map((event, i) => (
           <div key={i} className={styles.event}>
-            date: {event.date}
+            Date: {event.date}
             <br />
             <br />
-            description: {event.description}
+            Description: {event.description}
             <br />
             <br />
-            language: {event.language}
+            Language: {event.language}
             <br />
             <br />
-            category1: {event.category1}
+            Category1: {event.category1}
             <br />
             <br />
-            category2: {event.category2}
+            Category2: {event.category2}
             <br />
             <br />
-            granularity: {event.granularity}
+            Granularity: {event.granularity}
             <br />
             <hr />
             <br />
             <br />
           </div>
         ))}
-        <div className={styles.pagination}>
+        {/* <div className={styles.pagination}>
           <button onClick={() => this.pagination("back")}> {"<< prev"} </button>
           <button onClick={() => this.pagination("next")}> {"next >>"} </button>
-        </div>
+        </div> */}
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.pagination}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+        />
       </div>
     );
   }
