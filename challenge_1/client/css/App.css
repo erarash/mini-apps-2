@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: center;
+}
+.textbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.h2 {
+  display: flex;
+  justify-content: center;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+}
